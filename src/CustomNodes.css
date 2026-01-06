@@ -1,0 +1,103 @@
+/* Base node styles */
+.stage-node,
+.decision-node,
+.automation-node,
+.manual-node {
+  padding: 16px 20px;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 2px solid;
+  min-width: 180px;
+  transition: all 0.3s ease;
+}
+
+.stage-node:hover,
+.decision-node:hover,
+.automation-node:hover,
+.manual-node:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.node-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.node-icon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.node-label {
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+  color: #1a1a1a;
+}
+
+.node-description {
+  font-size: 11px;
+  color: #666;
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* Stage Node - Blue theme */
+.stage-node {
+  border-color: #3b82f6;
+  background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);
+}
+
+/* Decision Node - Orange theme */
+.decision-node {
+  border-color: #f59e0b;
+  background: linear-gradient(135deg, #ffffff 0%, #fef3c7 100%);
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  min-width: 200px;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+/* Automation Node - Green theme */
+.automation-node {
+  border-color: #10b981;
+  background: linear-gradient(135deg, #ffffff 0%, #d1fae5 100%);
+  border-style: dashed;
+}
+
+/* Manual Handoff Node - Purple theme */
+.manual-node {
+  border-color: #8b5cf6;
+  background: linear-gradient(135deg, #ffffff 0%, #ede9fe 100%);
+}
+
+/* Handle styles */
+.react-flow__handle {
+  width: 10px;
+  height: 10px;
+  background: #555;
+  border: 2px solid white;
+}
+
+.react-flow__handle-left {
+  left: -5px;
+}
+
+.react-flow__handle-right {
+  right: -5px;
+}
+
+.react-flow__handle-top {
+  top: -5px;
+}
+
+.react-flow__handle-bottom {
+  bottom: -5px;
+}
