@@ -1,49 +1,64 @@
+:root {
+  --font-serif: Georgia, 'Iowan Old Style', 'Times New Roman', serif;
+  --font-ui: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  /* Warm "paper" light theme. */
+  --bg: #f7f4ee;
+  --surface: #fffdf9;
+  --ink: #2b2a28;
+  --ink-strong: #17150f;
+  --ink-soft: #7c766c;
+  --border: #e7e1d6;
+  --border-strong: #d6cfc1;
+  --hover: #f0ece3;
+  --accent: #b0451f;
+  --accent-2: #2f6f6a;
+  --pos: #2f7d55;
+  --neg: #b0451f;
+  --danger: #b0281f;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14130f;
+    --surface: #1c1b16;
+    --ink: #e7e2d6;
+    --ink-strong: #faf6ec;
+    --ink-soft: #9a9384;
+    --border: #2c2a23;
+    --border-strong: #3a372e;
+    --hover: #242219;
+    --accent: #e0784f;
+    --accent-2: #63b3ab;
+    --pos: #6cc493;
+    --neg: #e0784f;
+    --danger: #e57b6f;
+  }
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-:root {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+html {
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  margin: 0;
-  min-width: 320px;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
   min-height: 100vh;
-  overflow: hidden;
 }
 
-h1 {
-  line-height: 1.1;
+#root {
+  min-height: 100vh;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  cursor: pointer;
-  transition: all 0.25s;
-}
-
-button:hover {
-  opacity: 0.9;
-}
-
-button:focus,
-button:focus-visible {
-  outline: 2px solid #667eea;
-  outline-offset: 2px;
+::selection {
+  background: color-mix(in srgb, var(--accent) 26%, transparent);
 }

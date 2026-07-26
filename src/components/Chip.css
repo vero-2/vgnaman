@@ -1,0 +1,132 @@
+.chip-root {
+  position: relative;
+  display: inline;
+  white-space: nowrap;
+}
+
+.chip {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0.02em 0.12em;
+  margin: 0 -0.02em;
+  cursor: pointer;
+  border-radius: 5px;
+  display: inline;
+  line-height: inherit;
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.chip-caret {
+  width: 0.5em;
+  height: 0.32em;
+  margin-left: 0.18em;
+  opacity: 0.45;
+  vertical-align: middle;
+}
+
+/* Dimension values / columns — the "nouns" you swap. */
+.chip--dimension,
+.chip--dimensionB {
+  color: var(--accent);
+  text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent);
+}
+.chip--dimensionB {
+  color: var(--accent-2);
+  text-decoration-color: color-mix(in srgb, var(--accent-2) 45%, transparent);
+}
+
+/* Measures and aggregations — the "verbs/metrics". */
+.chip--measure,
+.chip--agg {
+  color: var(--ink-strong);
+  text-decoration-color: color-mix(in srgb, var(--ink-strong) 32%, transparent);
+}
+
+.chip:hover,
+.chip--open {
+  background: color-mix(in srgb, currentColor 12%, transparent);
+  text-decoration-color: currentColor;
+}
+
+.chip-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 40;
+  min-width: 180px;
+  max-width: 320px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 12px 34px rgba(15, 23, 42, 0.18), 0 2px 8px rgba(15, 23, 42, 0.08);
+  padding: 6px;
+  white-space: normal;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  animation: chip-pop 0.12s ease;
+}
+
+@keyframes chip-pop {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.chip-search {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 7px 10px;
+  margin-bottom: 6px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--ink);
+  font: inherit;
+  outline: none;
+}
+.chip-search:focus {
+  border-color: var(--accent);
+}
+
+.chip-options {
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.chip-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  padding: 7px 10px;
+  border: none;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.chip-option:hover {
+  background: var(--hover);
+}
+.chip-option.is-selected {
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  color: var(--accent);
+  font-weight: 600;
+}
+.chip-option-hint {
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.82em;
+}
+.chip-empty {
+  padding: 8px 10px;
+  color: var(--ink-soft);
+}

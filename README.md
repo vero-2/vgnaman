@@ -1,81 +1,53 @@
-# ATS Workflow Mapper
+# Storygram
 
-An interactive React application for visualizing Applicant Tracking System (ATS) recruiting pipelines. This tool provides a clean, professional flowchart showing how candidates move through the hiring process.
+**Read your data like a story.** Storygram turns a spreadsheet into plain
+English sentences instead of a numerical dashboard. Every sentence has
+editable words — a team, a date, a region, a metric — and when you swap one,
+the numbers rewrite themselves.
 
-## Features
+The goal: get away from charts and pivot tables, and give anyone a simple
+narrative they can read and explore.
 
-- **Interactive Flowchart**: Built with ReactFlow for a smooth, interactive experience
-- **Complete Pipeline Visualization**: From Application to Accepted stages
-- **Multiple Node Types**:
-  - **Stage Nodes** (Blue): Main pipeline stages (Applied, Phone Screen, Onsite, Offer, Accepted)
-  - **Decision Nodes** (Orange): Decision points in the workflow
-  - **Automation Nodes** (Green): Automated touchpoints and processes
-  - **Manual Handoff Nodes** (Purple): Points requiring manual intervention
-- **Professional Design**: Clean, modern UI with gradient backgrounds and smooth animations
-- **Zoom & Pan Controls**: Navigate the workflow easily
-- **Mini-map**: Overview of the entire workflow
+## How it works
 
-## Pipeline Stages
+1. **Load data** — drop in a CSV (or pick a built-in sample). Everything stays
+   in your browser; nothing is uploaded to a server.
+2. **Read the story** — Storygram inspects the shape of your data and writes a
+   handful of sentences: the big picture, a closer look at one slice, a head-to-head
+   comparison, a leaderboard, and a trend over time.
+3. **Explore by editing** — the underlined words are interactive. Click one to
+   change the team, the date range, the metric, or how it's summarised, and the
+   bold numbers recompute instantly.
 
-1. **Applied** → Auto Resume Parse → Initial Screening
-2. **Phone Screen** → Auto Schedule → Evaluation
-3. **Onsite Interview** → Feedback Collection → Hire Decision
-4. **Offer** → Generate Offer Letter → Candidate Decision
-5. **Accepted** → Start Onboarding
+## Under the hood
 
-## Technology Stack
+Storygram is a client-side React app with no backend and no data
+dependencies:
 
-- **React** (v19.2) - UI framework
-- **ReactFlow** (@xyflow/react v12.10) - Interactive flowchart library
-- **Vite** - Build tool and dev server
-- **CSS3** - Custom styling with gradients and animations
+- `src/lib/csv.js` — a small, dependency-free CSV parser (quotes, escapes, BOM).
+- `src/lib/schema.js` — infers each column's role: **metric** (number),
+  **time** (date/year/quarter/month), or **category**, and detects currency /
+  percent / number formatting.
+- `src/lib/stats.js` — filtering, aggregation (sum, average, min, max, median,
+  count), ranking, time series, and human-friendly value formatting.
+- `src/story/blocks.jsx` — the narrative "blocks", each an editable sentence
+  built from `Chip` dropdowns and computed values.
+- `src/components/` — the data loader, sidebar schema view, and the chip control.
 
-## Getting Started
+Adding a new kind of sentence is just adding a block component and registering
+it in `src/story/catalogue.js`.
 
-### Prerequisites
-
-- Node.js (v16 or higher)
-- npm or yarn
-
-### Installation
+## Develop
 
 ```bash
-# Install dependencies
 npm install
-
-# Run development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
+npm run dev      # start the dev server
+npm run build    # production build
+npm run lint     # eslint
 ```
 
-## Development
+## Sample datasets
 
-The application is organized as follows:
-
-- `src/ATSWorkflowMapper.jsx` - Main workflow component with node and edge definitions
-- `src/CustomNodes.jsx` - Custom node components (Stage, Decision, Automation, Manual)
-- `src/CustomNodes.css` - Styling for custom nodes
-- `src/ATSWorkflowMapper.css` - Main workflow container styling
-- `src/App.jsx` - Root application component
-
-## Customization
-
-You can easily customize the workflow by modifying:
-
-1. **Nodes**: Edit `initialNodes` array in `ATSWorkflowMapper.jsx`
-2. **Edges**: Edit `initialEdges` array in `ATSWorkflowMapper.jsx`
-3. **Styling**: Modify the CSS files to change colors, sizes, and animations
-4. **Node Types**: Add new custom node types in `CustomNodes.jsx`
-
-## License
-
-MIT
-
-## Author
-
-Created for ATS workflow visualization and recruiting pipeline management.
+Three are bundled so the app is useful the moment it loads: Premier League
+seasons (teams), world population (countries and years), and SaaS sales
+(regions, plans and months).
