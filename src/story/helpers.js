@@ -74,10 +74,33 @@ function collator() {
   return (a, b) => c.compare(a, b)
 }
 
-// Pick a sensible default measure: the first real numeric measure if any,
-// else the record count.
+// Pick a sensible default measure: prefer a money column (summing it is
+// always meaningful), otherwise the first additive-looking measure, else
+// the record count.
 export function defaultMeasure(schema) {
-  return schema.measures.length ? schema.measures[0].name : COUNT
+  if (!schema.measures.length) return COUNT
+  const currency = schema.measures.find((m) => m.format === 'currency')
+  if (currency) return currency.name
+  const additive = schema.measures.find((m) => !looksAveraged(m.name))
+  return (additive || schema.measures[0]).name
+}
+
+// Some measures should be summed (money, counts, goals, population); others
+// only make sense averaged (ages, ratings, scores, rates, per-unit values).
+// Guess from the column's name and format so the opening line reads sensibly.
+function looksAveraged(name) {
+  return /\b(age|rating|score|balance|rate|ratio|index|per|avg|average|percent|pct|satisfaction|nps|likelihood)\b/i.test(
+    name,
+  )
+}
+
+export function defaultAgg(schema, measureValue) {
+  if (measureValue === COUNT) return 'sum'
+  const m = schema.measures.find((c) => c.name === measureValue)
+  if (!m) return 'sum'
+  if (m.format === 'currency') return 'sum'
+  if (m.format === 'percent' || looksAveraged(m.name)) return 'average'
+  return 'sum'
 }
 
 // Pick a sensible default dimension to group by: the one that most looks like

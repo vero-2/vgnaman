@@ -13,7 +13,15 @@ import {
   dimValueOptions,
   defaultMeasure,
   defaultDimension,
+  defaultAgg,
 } from './helpers.js'
+
+// Shared initial metric state so every block opens on a sensible
+// measure + aggregation for the dataset (e.g. "total Salary", "average Age").
+function useMetricDefaults(schema) {
+  const measure = defaultMeasure(schema)
+  return { measure, agg: defaultAgg(schema, measure) }
+}
 
 // Bold, read-only computed number.
 function V({ children }) {
@@ -41,8 +49,9 @@ function MetricChips({ schema, measure, setMeasure, agg, setAgg }) {
 // 1. Overview — the whole dataset in one line.
 // ---------------------------------------------------------------------------
 export function OverviewBlock({ rows, schema }) {
-  const [measure, setMeasure] = useState(defaultMeasure(schema))
-  const [agg, setAgg] = useState('sum')
+  const md = useMetricDefaults(schema)
+  const [measure, setMeasure] = useState(md.measure)
+  const [agg, setAgg] = useState(md.agg)
 
   const value = computeMetric(rows, { measure, agg })
   const fmt = measureFormat(schema, measure)
@@ -64,8 +73,9 @@ export function SegmentBlock({ rows, schema }) {
   const [dimCol, setDimCol] = useState(defaultDimension(schema))
   const valueOptions = useMemo(() => dimValueOptions(schema, dimCol), [schema, dimCol])
   const [dimValue, setDimValue] = useState(valueOptions[0]?.value)
-  const [measure, setMeasure] = useState(defaultMeasure(schema))
-  const [agg, setAgg] = useState('sum')
+  const md = useMetricDefaults(schema)
+  const [measure, setMeasure] = useState(md.measure)
+  const [agg, setAgg] = useState(md.agg)
 
   // Keep the selected value valid when the column changes.
   const activeValue = valueOptions.some((o) => o.value === dimValue)
@@ -105,8 +115,9 @@ export function CompareBlock({ rows, schema }) {
   const dimCols = dimColumnOptions(schema)
   const [dimCol, setDimCol] = useState(defaultDimension(schema))
   const valueOptions = useMemo(() => dimValueOptions(schema, dimCol), [schema, dimCol])
-  const [measure, setMeasure] = useState(defaultMeasure(schema))
-  const [agg, setAgg] = useState('sum')
+  const md = useMetricDefaults(schema)
+  const [measure, setMeasure] = useState(md.measure)
+  const [agg, setAgg] = useState(md.agg)
   const [a, setA] = useState(valueOptions[0]?.value)
   const [b, setB] = useState(valueOptions[1]?.value ?? valueOptions[0]?.value)
 
@@ -144,8 +155,9 @@ export function CompareBlock({ rows, schema }) {
 export function RankBlock({ rows, schema }) {
   const dimCols = dimColumnOptions(schema)
   const [dimCol, setDimCol] = useState(defaultDimension(schema))
-  const [measure, setMeasure] = useState(defaultMeasure(schema))
-  const [agg, setAgg] = useState('sum')
+  const md = useMetricDefaults(schema)
+  const [measure, setMeasure] = useState(md.measure)
+  const [agg, setAgg] = useState(md.agg)
 
   const fmt = measureFormat(schema, measure)
   const ranked = rankBy(rows, {
@@ -193,8 +205,9 @@ export function TrendBlock({ rows, schema }) {
     [schema, dimCol],
   )
   const [filterVal, setFilterVal] = useState(ALL)
-  const [measure, setMeasure] = useState(defaultMeasure(schema))
-  const [agg, setAgg] = useState('sum')
+  const md = useMetricDefaults(schema)
+  const [measure, setMeasure] = useState(md.measure)
+  const [agg, setAgg] = useState(md.agg)
 
   const safeFilter = filterOptions.some((o) => o.value === filterVal) ? filterVal : ALL
   if (safeFilter !== filterVal) setFilterVal(safeFilter)
