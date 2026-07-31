@@ -1,0 +1,27 @@
+.icon {
+  width: 24px;
+  height: 24px;
+  flex: none;
+}
+
+/* Woven into a sentence, sized to the running text. */
+.icon-inline {
+  width: 1.05em;
+  height: 1.05em;
+  vertical-align: -0.15em;
+  margin: 0 0.12em 0 0.02em;
+  opacity: 0.8;
+}
+
+/* The little glyph that opens a story sentence. */
+.icon-lead {
+  width: 1.15em;
+  height: 1.15em;
+  vertical-align: -0.18em;
+  margin-right: 0.28em;
+  color: var(--accent);
+}
+
+/* Direction-coloured trend glyphs. */
+.icon-up { color: var(--pos); }
+.icon-down { color: var(--neg); }

@@ -1,12 +1,7 @@
+import Icon from './Icon.jsx'
 import './Sidebar.css'
 
-const ROLE_META = {
-  measure: { label: 'metric', className: 'role-measure' },
-  time: { label: 'time', className: 'role-time' },
-  dimension: { label: 'category', className: 'role-dimension' },
-}
-
-export default function Sidebar({ name, schema, onReset }) {
+export default function Sidebar({ name, schema, sections, activeId, onSelect, onReset }) {
   return (
     <aside className="sidebar">
       <div className="sidebar-head">
@@ -16,29 +11,36 @@ export default function Sidebar({ name, schema, onReset }) {
         </button>
       </div>
 
-      <h2 className="sidebar-name">{name}</h2>
-      <p className="sidebar-meta">
-        {schema.rowCount.toLocaleString()} rows · {schema.columns.length} columns
-      </p>
-
-      <div className="sidebar-section">
-        <p className="sidebar-section-title">Columns</p>
-        <ul className="col-list">
-          {schema.columns.map((c) => {
-            const meta = ROLE_META[c.role] || ROLE_META.dimension
-            return (
-              <li key={c.name} className="col-item">
-                <span className="col-name" title={c.name}>{c.name}</span>
-                <span className={`col-role ${meta.className}`}>{meta.label}</span>
-              </li>
-            )
-          })}
-        </ul>
+      <div className="sidebar-dataset">
+        <h2 className="sidebar-name">{name}</h2>
+        <p className="sidebar-meta">
+          {schema.rowCount.toLocaleString()} rows · {schema.columns.length} columns
+        </p>
       </div>
 
+      <nav className="section-nav" aria-label="Story sections">
+        {sections.map((s) => (
+          <button
+            key={s.id}
+            type="button"
+            className={`nav-item ${s.id === activeId ? 'is-active' : ''}`}
+            onClick={() => onSelect(s.id)}
+            aria-current={s.id === activeId ? 'page' : undefined}
+          >
+            <span className="nav-icon">
+              <Icon name={s.icon} />
+            </span>
+            <span className="nav-text">
+              <span className="nav-title">{s.title}</span>
+              <span className="nav-sub">{s.subtitle}</span>
+            </span>
+          </button>
+        ))}
+      </nav>
+
       <p className="sidebar-tip">
-        Tip: the <span className="tip-underline">underlined words</span> in each sentence are editable. Click one to
-        swap it and the numbers update instantly.
+        The <span className="tip-underline">underlined words</span> in each sentence are editable — click one to
+        explore.
       </p>
     </aside>
   )

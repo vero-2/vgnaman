@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import Chip from '../components/Chip.jsx'
+import Icon from '../components/Icon.jsx'
 import { formatValue, formatPercentChange, describeChange, rankBy, seriesByTime } from '../lib/stats.js'
 import {
   COUNT,
@@ -58,6 +59,7 @@ export function OverviewBlock({ rows, schema }) {
 
   return (
     <p className="sentence">
+      <Icon name="sigma" className="icon-lead" />
       Across all <V>{rows.length.toLocaleString()}</V> records, the{' '}
       <MetricChips schema={schema} measure={measure} setMeasure={setMeasure} agg={agg} setAgg={setAgg} /> comes to{' '}
       <V>{formatValue(value, fmt)}</V>.
@@ -93,6 +95,7 @@ export function SegmentBlock({ rows, schema }) {
 
   return (
     <p className="sentence">
+      <Icon name="percent" className="icon-lead" />
       When <Chip value={dimCol} options={dimCols} onChange={setDimCol} title="Change the grouping" /> is{' '}
       <Chip value={activeValue} options={valueOptions} onChange={setDimValue} title="Pick a value" />, the{' '}
       <MetricChips schema={schema} measure={measure} setMeasure={setMeasure} agg={agg} setAgg={setAgg} /> is{' '}
@@ -134,6 +137,7 @@ export function CompareBlock({ rows, schema }) {
 
   return (
     <p className="sentence">
+      <Icon name="scale" className="icon-lead" />
       <Chip kind="dimension" value={safeA} options={valueOptions} onChange={setA} title="First value" /> recorded a{' '}
       <MetricChips schema={schema} measure={measure} setMeasure={setMeasure} agg={agg} setAgg={setAgg} /> of{' '}
       <V>{formatValue(valA, fmt)}</V>, {change.compareWord}{' '}
@@ -169,6 +173,7 @@ export function RankBlock({ rows, schema }) {
 
   return (
     <p className="sentence">
+      <Icon name="trophy" className="icon-lead" />
       Ranked by <MetricChips schema={schema} measure={measure} setMeasure={setMeasure} agg={agg} setAgg={setAgg} />,{' '}
       <Chip value={dimCol} options={dimCols} onChange={setDimCol} title="Change the grouping" /> is led by{' '}
       {first ? (

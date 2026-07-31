@@ -1,0 +1,144 @@
+.section-view {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 60px 32px 120px;
+}
+
+.section-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 42px;
+}
+.section-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 13px;
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  color: var(--accent);
+}
+.section-icon .icon {
+  width: 26px;
+  height: 26px;
+}
+.section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.9rem, 4.2vw, 2.6rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 2px 0 8px;
+  color: var(--ink-strong);
+}
+.section-subtitle {
+  font-size: 1.02rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin: 0;
+  max-width: 32em;
+}
+
+.section-body {
+  display: flex;
+  flex-direction: column;
+}
+.story-block {
+  padding: 26px 0;
+  border-top: 1px solid var(--border);
+}
+.story-block:first-child {
+  border-top: none;
+  padding-top: 6px;
+}
+
+/* --- the sentences (the reading experience) --- */
+.sentence {
+  font-family: var(--font-serif);
+  font-size: clamp(1.32rem, 2.5vw, 1.62rem);
+  line-height: 1.72;
+  color: var(--ink);
+  margin: 0;
+  letter-spacing: -0.006em;
+}
+.sentence--calm {
+  font-size: 1.15rem;
+  color: var(--ink-soft);
+  margin-bottom: 22px;
+}
+
+.value {
+  font-weight: 700;
+  color: var(--ink-strong);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.lead {
+  font-weight: 700;
+  color: var(--ink-strong);
+}
+.sentence-note {
+  font-size: 0.78em;
+  color: var(--ink-soft);
+}
+.trend-word {
+  font-style: italic;
+}
+.trend-up { color: var(--pos); }
+.trend-down { color: var(--neg); }
+.trend-flat { color: var(--ink-soft); }
+
+/* --- the data section --- */
+.schema-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 4px 20px;
+}
+.schema-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+.schema-name {
+  font-family: var(--font-ui);
+  font-size: 0.92rem;
+  color: var(--ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.col-role {
+  flex: none;
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.role-measure {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+}
+.role-time {
+  color: var(--accent-2);
+  background: color-mix(in srgb, var(--accent-2) 14%, transparent);
+}
+.role-dimension {
+  color: var(--ink-soft);
+  background: var(--hover);
+}
+
+@media (max-width: 820px) {
+  .section-view {
+    padding: 36px 22px 90px;
+  }
+}

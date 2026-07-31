@@ -10,7 +10,7 @@
 
 .app-shell {
   display: grid;
-  grid-template-columns: 280px 1fr;
+  grid-template-columns: 300px 1fr;
   min-height: 100vh;
 }
 .app-main {
@@ -29,8 +29,5 @@
   }
   .sidebar-tip {
     display: none;
-  }
-  .narrative {
-    padding: 40px 24px 80px;
   }
 }
